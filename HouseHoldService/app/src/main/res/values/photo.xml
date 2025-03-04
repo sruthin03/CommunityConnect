@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="image">
+        <item>Select a method</item>
+        <item>Take a photo</item>
+        <item>Choose from gallery</item>
+    </string-array>
+</resources>

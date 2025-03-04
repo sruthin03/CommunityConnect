@@ -1,0 +1,143 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_marginTop="15dp"
+    android:orientation="vertical"
+    android:padding="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_bg"
+            android:padding="16dp"
+            tools:ignore="ExtraText">
+
+            <!-- Back Arrow Icon -->
+            <ImageButton
+                android:id="@+id/backArrow"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="Back"
+                android:src="@drawable/arrow_back"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
+
+            <!-- Text for Create Account -->
+            <TextView
+                android:id="@+id/createAccountText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="70dp"
+                android:layout_toEndOf="@id/backArrow"
+                android:foregroundGravity="center_horizontal"
+                android:gravity="center|center_horizontal"
+                android:text="Service request"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="412dp"
+        android:layout_height="765dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="131dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="92dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:paddingLeft="15dp"
+                android:text="Select the service"
+                android:textSize="22sp" />
+
+            <Spinner
+                android:id="@+id/spinner4"
+                android:layout_width="360dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_textbox"
+                android:entries="@array/profession"
+                android:spinnerMode="dropdown" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="126dp"
+                android:orientation="vertical"></LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingTop="30dp"
+            android:text="Issue"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/editTextTextIssue"
+            android:layout_width="360dp"
+            android:layout_height="68dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_textbox"
+            android:ems="10"
+            android:inputType="text"
+            android:paddingLeft="15dp" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="30dp"
+            android:text="Upload image(Optional)"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="360dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_textbox"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/image"
+            android:paddingLeft="15dp"
+            android:spinnerMode="dropdown" />
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="267dp"
+            android:layout_height="77dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="280dp"
+            android:text="Submit"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+</LinearLayout>
+

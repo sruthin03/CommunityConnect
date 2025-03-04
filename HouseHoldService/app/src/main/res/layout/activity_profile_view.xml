@@ -1,0 +1,143 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="15dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_bg"
+            android:padding="16dp"
+            tools:ignore="ExtraText">
+
+            <!-- Back Arrow Icon -->
+            <ImageButton
+                android:id="@+id/backArrow"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="Back"
+                android:src="@drawable/arrow_back"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
+
+            <!-- Text for Profile -->
+            <TextView
+                android:id="@+id/createAccountText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="99dp"
+                android:layout_toEndOf="@id/backArrow"
+                android:foregroundGravity="center_horizontal"
+                android:gravity="center|center_horizontal"
+                android:text="Profile"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="252dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="183dp"
+            android:layout_marginTop="15dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="284dp"
+        android:orientation="vertical">
+
+        <!-- Mobile Number Field -->
+        <TextView
+            android:id="@+id/mobileTextView"
+            android:layout_width="358dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_textbox"
+            android:paddingLeft="20dp"
+            android:text="Mobile Number"
+            android:textSize="20sp" />
+
+        <!-- Email Field -->
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="360dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/rounded_textbox"
+            android:paddingLeft="20dp"
+            android:text="Email"
+            android:textSize="20sp" />
+
+        <!-- Address Field -->
+        <TextView
+            android:id="@+id/addressTextView"
+            android:layout_width="360dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/rounded_textbox"
+            android:paddingLeft="20dp"
+            android:text="Address"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="342dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            android:text="Edit Profile"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/updatePassword"
+            android:layout_width="342dp"
+            android:layout_height="74dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Update Password"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+</LinearLayout>

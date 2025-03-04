@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1016409020100",
+    "project_id": "communityconnect-4f3d0",
+    "storage_bucket": "communityconnect-4f3d0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016409020100:android:3fd530941c55542b89db91",
+        "android_client_info": {
+          "package_name": "com.example.householdservice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHfcSbwXhrNXKsEyFyK_lMAx4VI-3ui6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="profession">
+        <item> </item>
+        <item>Cleaning service</item>
+        <item>Electrician</item>
+        <item>Plumber</item>
+        <item>Pest control service</item>
+        <item>Gardening and landscaping</item>
+        <item>Appliance repair</item>
+        <item>Furniture repair</item>
+        <item>Handyman services</item>
+        <item>Security and smarthome service</item>
+        <item>Petcare</item>
+    </string-array>
+</resources>
