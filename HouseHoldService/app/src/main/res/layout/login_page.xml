@@ -19,7 +19,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="269dp"
+        android:layout_height="214dp"
         android:orientation="vertical">
 
         <ImageView
@@ -28,6 +28,49 @@
             android:layout_height="150dp"
             android:layout_marginTop="20dp"
             app:srcCompat="@drawable/logo" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/userTypeRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <RadioButton
+                android:id="@+id/radioUser"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/radio_selector"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:padding="15dp"
+                android:text="User"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/radioWorker"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/radio_selector"
+                android:button="@android:color/transparent"
+                android:padding="15dp"
+                android:text="Worker"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </RadioGroup>
+
     </LinearLayout>
 
     <LinearLayout
@@ -43,7 +86,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/rounded_textbox"
             android:ems="10"
-            android:hint="Mobile Number or Email address"
+            android:hint="Email address"
             android:inputType="text"
             android:paddingLeft="20dp" />
 
@@ -75,7 +118,7 @@
             android:layout_marginTop="10dp"
             android:clickable="true"
             android:gravity="center_horizontal"
-            android:text="Forgot Password?"
+            android:text="login with phone number"
             android:textColor="#3F51B5"
             android:textSize="18sp" />
 
@@ -83,7 +126,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="80dp"
         android:orientation="vertical">
 
         <Button
@@ -92,26 +135,9 @@
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="Login as worker"
+            android:backgroundTint="#808080"
+            android:text="Create new account"
             android:textSize="20sp" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/create_acc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:gravity="center_horizontal"
-            android:text="Dont have a account? Create new"
-            android:textColor="#3F51B5"
-            android:textSize="18sp" />
-    </LinearLayout>
-
 
 </LinearLayout>

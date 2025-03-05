@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ImageView;
+import com.bumptech.glide.Glide;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -50,7 +52,7 @@ public class ViewStatusActivity extends AppCompatActivity {
                 }
 
                 // Clear the current list of issues to avoid duplicates
-                issuesContainer.removeAllViews();
+                //issuesContainer.removeAllViews();
 
                 // Iterate through the fetched issues and display them
                 for (DocumentSnapshot document : querySnapshot.getDocuments()) {
@@ -66,21 +68,38 @@ public class ViewStatusActivity extends AppCompatActivity {
         });
     }
 
-    private void addIssueToUI(String issueName, String reportedTime, String status,String url) {
+    private void addIssueToUI(String issueName, String reportedTime, String status, String url) {
         // Create a new TextView for the issue details
         TextView issueTextView = new TextView(this);
         issueTextView.setText("Issue: " + issueName + "\nReported at: " + reportedTime + "\nStatus: " + status);
         issueTextView.setPadding(0, 10, 0, 10);
         issueTextView.setTextSize(18);
+        issueTextView.setBackgroundColor(getResources().getColor(R.color.light_gray)); // Optional styling
+
+        // Create ImageView for issue image
         ImageView issueImageView = new ImageView(this);
-        issueImageView.setLayoutParams(new LinearLayout.LayoutParams(144, 134));
-        issueImageView.setImageResource(R.drawable.repair_service);
+        issueImageView.setLayoutParams(new LinearLayout.LayoutParams(300, 300)); // Set image size
 
+        // Load image using Glide
+        if (url != null && !url.isEmpty()) {
+            Glide.with(this)
+                    .load(url)
+                    .placeholder(R.drawable.repair_service) // Default image while loading
+                    .error(R.drawable.repair_service) // Default if error occurs
+                    .into(issueImageView);
+        } else {
+            issueImageView.setImageResource(R.drawable.repair_service); // Default image
+        }
 
-            // Optionally, style the TextView (for example, setting colors or background)
-        issueTextView.setBackgroundColor(getResources().getColor(R.color.light_gray)); // Sample background
+        // Create a container for TextView and ImageView
+        LinearLayout issueLayout = new LinearLayout(this);
+        issueLayout.setOrientation(LinearLayout.VERTICAL);
+        issueLayout.setPadding(10, 10, 10, 10);
+        issueLayout.addView(issueTextView);
+        issueLayout.addView(issueImageView);
 
-        // Add the TextView to the LinearLayout
-        issuesContainer.addView(issueTextView);
+        // Add the issue layout to the container
+        issuesContainer.addView(issueLayout);
     }
+
 }

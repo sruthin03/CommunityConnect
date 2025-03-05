@@ -98,7 +98,7 @@ public class WorkerLoginActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(WorkerLoginActivity.this, "Worker registered successfully", Toast.LENGTH_SHORT).show();
                                     // Navigate to login page or main screen
-                                    Intent intent = new Intent(WorkerLoginActivity.this, LoginAsWorker.class);
+                                    Intent intent = new Intent(WorkerLoginActivity.this, Login_page.class);
                                     startActivity(intent);
                                     finish();
                                 } else {

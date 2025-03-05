@@ -37,6 +37,9 @@ android {
 }
 
 dependencies {
+    implementation ("com.google.firebase:firebase-auth:21.1.0")
+    implementation ("com.google.firebase:firebase-firestore:24.7.1")
+    implementation ("com.google.firebase:firebase-auth:22.0.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
@@ -46,8 +49,12 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.squareup.picasso:picasso:2.8")
-
-
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.10.0")
+    implementation("androidx.activity:activity:1.8.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.storage)

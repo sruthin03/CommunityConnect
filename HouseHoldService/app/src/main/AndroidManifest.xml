@@ -6,11 +6,10 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -23,11 +22,14 @@
         android:theme="@style/Theme.HouseHoldService"
         tools:targetApi="31">
         <activity
+            android:name=".ProfileEdit"
+            android:exported="false" />
+        <activity
             android:name=".WorkerHomePage"
             android:exported="true"
             android:theme="@style/Theme.HouseHoldService" />
         <activity
-            android:name=".LoginAsWorker"
+            android:name=".PhoneLoginActivity"
             android:exported="true" />
         <activity
             android:name=".ResetPassword"
@@ -51,6 +53,10 @@
         <activity
             android:name=".WorkerLoginActivity"
             android:exported="true" />
+        <activity
+            android:name=".OtpVerification"
+            android:exported="true" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.householdservice.fileprovider"

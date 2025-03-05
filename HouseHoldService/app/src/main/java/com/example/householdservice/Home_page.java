@@ -33,6 +33,7 @@ public class Home_page extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
         // Ensure your XML layout file is named correctly
 
         // Initialize views
@@ -70,7 +71,6 @@ public class Home_page extends AppCompatActivity {
         profileButton.setOnClickListener(view -> {
             // Navigate to worker login or registration activity
             Intent intent = new Intent(Home_page.this, ProfileView.class);
-            intent.putExtra("USER_ID", userId);
             startActivity(intent);
         });
     }

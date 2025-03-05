@@ -2,6 +2,7 @@ package com.example.householdservice;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -23,10 +24,13 @@ public class ProfileView extends AppCompatActivity {
 
     private TextView mobileTextView, emailTextView, addressTextView, nameTextView;
     private Button changePassword;
+    private Button editProfile;
+    private Button logOut;
     private FirebaseFirestore firestore;
     private String userId;
     private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;// Assuming userId is available as the unique identifier for Firestore
+    private FirebaseUser currentUser;
+    private ImageButton backArrow;// Assuming userId is available as the unique identifier for Firestore
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +40,45 @@ public class ProfileView extends AppCompatActivity {
         // Initialize Firestore
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
-        //currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
 
         // Initialize UI elements
         mobileTextView = findViewById(R.id.mobileTextView);
         emailTextView = findViewById(R.id.emailTextView);
         addressTextView = findViewById(R.id.addressTextView);
         nameTextView = findViewById(R.id.textView12);
-        changePassword = findViewById(R.id.updatePassword);// This is where the name will be displayed
-
+        changePassword = findViewById(R.id.updatePassword);
+        editProfile = findViewById(R.id.editProfile);// This is where the name will be displayed
+        logOut = findViewById(R.id.logout);
+        backArrow = findViewById(R.id.backArrow);
         // Assuming userId is passed from the previous activity
-        userId = getIntent().getStringExtra("USER_ID");
 
         // Load user details from Firestore
         loadUserProfile();
-        changePassword.setOnClickListener(view->{
-            Intent intent = new Intent(ProfileView.this, UpdatePassword.class);
-            intent.putExtra("USER_ID", userId);
+
+        backArrow.setOnClickListener(v -> finish());
+
+        editProfile.setOnClickListener(view->{
+            Intent intent = new Intent(ProfileView.this, ProfileEdit.class);
             startActivity(intent);
         });
-    }
-    private void loadUserProfile() {
+        changePassword.setOnClickListener(view->{
+            Intent intent = new Intent(ProfileView.this, UpdatePassword.class);
+            startActivity(intent);
+        });
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut(); // Firebase Logout
+                Intent intent = new Intent(ProfileView.this, Login_page.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+            });
+        }
+        private void loadUserProfile() {
+        userId = currentUser.getUid();
         firestore.collection("users").document(userId) // Adjust collection name if needed
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
