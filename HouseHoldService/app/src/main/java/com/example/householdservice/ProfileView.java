@@ -30,7 +30,7 @@ public class ProfileView extends AppCompatActivity {
     private String userId;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private ImageButton backArrow;// Assuming userId is available as the unique identifier for Firestore
+    private ImageButton backArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

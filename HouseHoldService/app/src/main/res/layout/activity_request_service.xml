@@ -56,7 +56,7 @@
 
     <LinearLayout
         android:layout_width="412dp"
-        android:layout_height="765dp"
+        android:layout_height="812dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="131dp">
@@ -129,15 +129,26 @@
             android:paddingLeft="15dp"
             android:spinnerMode="dropdown" />
 
+
+        <ImageView
+            android:id="@+id/selectedImageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop" />
+
         <Button
             android:id="@+id/button9"
             android:layout_width="267dp"
             android:layout_height="77dp"
             android:layout_gravity="center"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="100dp"
             android:text="Submit"
             android:textSize="20sp" />
 
     </LinearLayout>
 </LinearLayout>
+
+
 

@@ -8,11 +8,13 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
+        tools:replace="android:fullBackupContent"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -21,18 +23,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HouseHoldService"
         tools:targetApi="31">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.householdservice.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".ProfileEdit"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".WorkerHomePage"
             android:exported="true"
             android:theme="@style/Theme.HouseHoldService" />
         <activity
             android:name=".PhoneLoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ResetPassword"
             android:exported="true" />
         <activity
             android:name=".ForgotPassword"
@@ -45,7 +54,9 @@
             android:exported="true" />
         <activity
             android:name=".RequestServiceActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:configChanges="screenSize|smallestScreenSize|orientation"
+            />
         <activity
             android:name=".CreateAccount"
             android:exported="true"
@@ -56,6 +67,7 @@
         <activity
             android:name=".OtpVerification"
             android:exported="true" />
+
 
         <provider
             android:name="androidx.core.content.FileProvider"
