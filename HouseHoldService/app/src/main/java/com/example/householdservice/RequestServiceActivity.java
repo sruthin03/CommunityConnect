@@ -264,6 +264,7 @@ public class RequestServiceActivity extends AppCompatActivity {
         request.put("name", User);  // Add user name
         request.put("userDistrict", userDistrict);
         request.put("userId", userId);
+        request.put("status","pending");
         request.put("timestamp", FieldValue.serverTimestamp());
 
         db.collection("Service").add(request)

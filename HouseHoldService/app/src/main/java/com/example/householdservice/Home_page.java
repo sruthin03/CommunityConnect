@@ -29,7 +29,7 @@ public class Home_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
-        userId = getIntent().getStringExtra("USER_ID");
+
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -55,15 +55,13 @@ public class Home_page extends AppCompatActivity {
         requestServiceButton.setOnClickListener(view -> {
             // Navigate to the service request activity or show a message
             Intent intent = new Intent(Home_page.this, RequestServiceActivity.class);
-            intent.putExtra("USER_ID", userId);
             startActivity(intent);
         });
 
         // "View Status" button functionality
         viewStatusButton.setOnClickListener(view -> {
             // Navigate to the status view activity or show a message
-            Intent intent = new Intent(Home_page.this, ViewStatusActivity.class);
-            intent.putExtra("USER_ID", userId);
+            Intent intent = new Intent(Home_page.this, ViewRequests.class);
             startActivity(intent);
         });
 

@@ -25,7 +25,7 @@ public class Login_page extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
     private Button loginButton, createAccountButton;
-    private TextView phoneSignupText;
+    private TextView forgotPassword;
     private RadioGroup userTypeRadioGroup;
     private RadioButton radioUser, radioWorker;
 
@@ -47,7 +47,7 @@ public class Login_page extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         loginButton = findViewById(R.id.login_button);
         createAccountButton = findViewById(R.id.worker_login);
-        phoneSignupText = findViewById(R.id.forgot_password);
+        forgotPassword = findViewById(R.id.forgot_password);
         userTypeRadioGroup = findViewById(R.id.userTypeRadioGroup);
         radioUser = findViewById(R.id.radioUser);
         radioWorker = findViewById(R.id.radioWorker);
@@ -64,9 +64,9 @@ public class Login_page extends AppCompatActivity {
         // Login button click event
         loginButton.setOnClickListener(view -> loginUser());
 
-        // Navigate to Phone Login Page
-        phoneSignupText.setOnClickListener(view -> {
-            Intent intent = new Intent(Login_page.this, PhoneLoginActivity.class);
+
+        forgotPassword.setOnClickListener(view -> {
+            Intent intent = new Intent(Login_page.this, ForgotPassword.class);
             startActivity(intent);
         });
 

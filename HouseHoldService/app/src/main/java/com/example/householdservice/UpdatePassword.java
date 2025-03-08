@@ -1,14 +1,19 @@
 package com.example.householdservice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +25,10 @@ public class UpdatePassword extends AppCompatActivity {
     private Button submitButton;
     private ImageButton backArrow;
     private FirebaseAuth mAuth;
+    private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
+    private TextView forgotPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +39,24 @@ public class UpdatePassword extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
+
         // Initialize UI elements
         currPassword = findViewById(R.id.curr);
         newPassword = findViewById(R.id.textView55);
         confirmPassword = findViewById(R.id.textView25);
         submitButton = findViewById(R.id.button6);
         backArrow = findViewById(R.id.backArrow);
+        forgotPassword = findViewById(R.id.forgot_password);
 
         // Back button functionality
         backArrow.setOnClickListener(v -> finish());
 
         // Submit button click listener
         submitButton.setOnClickListener(v -> updatePassword());
+
+        forgotPassword.setOnClickListener(view -> resetPassword());
     }
+
 
     private void updatePassword() {
         String oldPass = currPassword.getText().toString().trim();
@@ -84,6 +97,41 @@ public class UpdatePassword extends AppCompatActivity {
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, "Current password is incorrect", Toast.LENGTH_SHORT).show();
                     });
+        } else {
+            Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void logout(){
+            mAuth.signOut(); // Firebase Logout
+            Intent intent = new Intent(UpdatePassword.this, Login_page.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+    }
+    private void resetPassword() {
+        if (user != null) {
+            String email = user.getEmail();
+            if (email != null) {
+                FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(UpdatePassword.this,
+                                            "Password reset email sent to "+email, Toast.LENGTH_LONG).show();
+                                    logout();
+                                } else {
+                                    Toast.makeText(UpdatePassword.this,
+                                            "Error: " + task.getException().getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+            } else {
+                Toast.makeText(this, "Email not found!", Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show();
         }

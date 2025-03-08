@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.householdservice"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.householdservice"
         minSdk = 23
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -55,10 +55,15 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.activity:activity:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+    implementation("androidx.navigation:navigation-fragment:2.6.0")
+    implementation("androidx.navigation:navigation-ui:2.6.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.storage)
+
+
 
 
 

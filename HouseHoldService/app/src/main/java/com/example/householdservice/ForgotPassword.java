@@ -4,50 +4,66 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPassword extends AppCompatActivity {
 
-    private EditText emailEditText;
+    private EditText emailInput;
     private Button resetPasswordButton;
-    private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
-
-        // Initialize views
-        emailEditText = findViewById(R.id.emailEditText);
+        emailInput = findViewById(R.id.emailInput);
         resetPasswordButton = findViewById(R.id.resetPasswordButton);
+        progressBar = findViewById(R.id.progressBar);
 
-        // Set click listener for the reset password button
+        firebaseAuth = FirebaseAuth.getInstance();
+
         resetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailEditText.getText().toString().trim();
-                if (email.isEmpty()) {
-                    Toast.makeText(ForgotPassword.this, "Please enter your email", Toast.LENGTH_SHORT).show();
-                } else {
-                    sendPasswordResetEmail(email);
-                }
+                resetPassword();
             }
         });
     }
 
-    private void sendPasswordResetEmail(String email) {
-        mAuth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(ForgotPassword.this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(ForgotPassword.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+    private void resetPassword() {
+        String email = emailInput.getText().toString().trim();
+
+        if (email.isEmpty()) {
+            emailInput.setError("Email is required!");
+            emailInput.requestFocus();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        firebaseAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        progressBar.setVisibility(View.GONE);
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ForgotPassword.this,
+                                    "Password reset email sent!", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(ForgotPassword.this,
+                                    "Error: " + task.getException().getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
     }
