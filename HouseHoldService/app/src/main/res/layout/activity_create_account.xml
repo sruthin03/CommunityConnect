@@ -165,18 +165,18 @@
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:paddingLeft="15dp"
-            android:text="District"
+            android:text="Location"
             android:textSize="22dp" />
 
-        <Spinner
+        <Button
             android:id="@+id/spinner2"
             android:layout_width="360dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:background="@drawable/rounded_textbox"
-            android:entries="@array/districts"
             android:paddingLeft="15dp"
-            android:spinnerMode="dropdown" />
+            android:text="Select location"
+            android:textSize="16dp"/>
 
     </LinearLayout>
 

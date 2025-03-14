@@ -1,6 +1,8 @@
 package com.example.householdservice;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,10 +11,14 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.Manifest;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -21,7 +27,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+
 public class Login_page extends AppCompatActivity {
+
 
     private EditText emailEditText, passwordEditText;
     private Button loginButton, createAccountButton;
@@ -37,6 +45,8 @@ public class Login_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
+
+        requestNotificationPermission();
 
         // Initialize Firebase Auth & Firestore
         mAuth = FirebaseAuth.getInstance();
@@ -57,7 +67,7 @@ public class Login_page extends AppCompatActivity {
             if (checkedId == R.id.radioUser) {
                 userType = "users"; // Login as a user
             } else if (checkedId == R.id.radioWorker) {
-                userType = "workers"; // Login as a worker
+                userType = "workerId"; // Login as a worker
             }
         });
 
@@ -72,7 +82,7 @@ public class Login_page extends AppCompatActivity {
 
         // Navigate to Register Page
         createAccountButton.setOnClickListener(view -> {
-            if (userType == "users"){
+            if (userType.equals("users")){
                 Intent intent = new Intent(Login_page.this, CreateAccount.class);
                 startActivity(intent);
             }
@@ -83,7 +93,15 @@ public class Login_page extends AppCompatActivity {
 
         });
     }
-
+    public void requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
+    }
     private void loginUser() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
@@ -122,10 +140,14 @@ public class Login_page extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             Toast.makeText(Login_page.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Login_page.this, Home_page.class);
-                            intent.putExtra("USER_ID", currentUser.getUid());
-                            startActivity(intent);
-                            finish();
+                            if (userType.equals("users")){
+                                Intent intent = new Intent(Login_page.this, Home_page.class);
+                                startActivity(intent);
+                            }
+                            else {
+                                Intent intent = new Intent(Login_page.this, WorkerHome.class);
+                                startActivity(intent);
+                            }
                         } else {
                             Toast.makeText(Login_page.this, "User not found in " + userType, Toast.LENGTH_SHORT).show();
                         }

@@ -1,5 +1,6 @@
 package com.example.householdservice;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,17 +19,20 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CreateAccount extends AppCompatActivity {
 
+    private static final int LOCATION_REQUEST_CODE = 100;
     private EditText nameEditText, ageEditText, addressEditText, mobileEditText, emailEditText, passwordEditText;
-    private Spinner genderSpinner, districtSpinner;
-    private Button createAccountButton;
+    private Spinner genderSpinner;
+    private Button createAccountButton,SelectLocation;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
+    private double selectedLatitude = 0.0, selectedLongitude = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,7 @@ public class CreateAccount extends AppCompatActivity {
         emailEditText = findViewById(R.id.editTextTextEmailAddress2);
         passwordEditText = findViewById(R.id.editTextTextPassword);
         genderSpinner = findViewById(R.id.spinnerGender);
-        districtSpinner = findViewById(R.id.spinner2);
+        SelectLocation = findViewById(R.id.spinner2);
         createAccountButton = findViewById(R.id.button8);
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -55,21 +60,31 @@ public class CreateAccount extends AppCompatActivity {
                 registerUser();
             }
         });
+        SelectLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(CreateAccount.this, LocationSelectionActivity.class);
+            startActivityForResult(intent, LOCATION_REQUEST_CODE);
+        });
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LOCATION_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            selectedLatitude = data.getDoubleExtra("latitude", 0.0);
+            selectedLongitude = data.getDoubleExtra("longitude", 0.0);
+        }
+    }
     private void registerUser() {
         String name = nameEditText.getText().toString().trim();
         String age = ageEditText.getText().toString().trim();
         String gender = genderSpinner.getSelectedItem().toString();
         String address = addressEditText.getText().toString().trim();
-        String district = districtSpinner.getSelectedItem().toString();
         String mobile = mobileEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
         // Validation
         if (name.isEmpty() || age.isEmpty() || gender.isEmpty() || address.isEmpty() ||
-                district.isEmpty() || mobile.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                selectedLatitude == 0.0 || mobile.isEmpty() || email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -97,7 +112,7 @@ public class CreateAccount extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null) {
-                                saveUserToFirestore(user.getUid(), name, age, gender, address, district, mobile, email);
+                                saveUserToFirestore(user.getUid(), name, age, gender, address, selectedLatitude,selectedLongitude, mobile, email);
                             }
                         } else {
                             Toast.makeText(CreateAccount.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -107,13 +122,13 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     // Save user details in Firestore
-    private void saveUserToFirestore(String userId, String name, String age, String gender, String address, String district, String mobile, String email) {
+    private void saveUserToFirestore(String userId, String name, String age, String gender, String address, double latitude,double longitude, String mobile, String email) {
         Map<String, Object> userData = new HashMap<>();
         userData.put("name", name);
         userData.put("age", age);
         userData.put("gender", gender);
         userData.put("address", address);
-        userData.put("district", district);
+        userData.put("location",new GeoPoint(latitude,longitude));
         userData.put("mobile", mobile);
         userData.put("email", email);
 

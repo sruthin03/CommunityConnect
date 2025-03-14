@@ -88,8 +88,16 @@
         android:paddingLeft="15dp"
         android:background="@drawable/rounded_textbox"
         android:inputType="textPostalAddress"
-        android:layout_marginTop="10dp" />
-
+        android:layout_marginTop="10dp"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/changeAddressBtn"
+        android:layout_gravity="center"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:textSize="20dp"
+        android:text="Update Location"
+        android:layout_marginTop="20dp" />
     <!-- Update Button -->
     <Button
         android:id="@+id/updateProfileBtn"

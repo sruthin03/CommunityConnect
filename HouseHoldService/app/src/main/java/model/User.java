@@ -1,5 +1,7 @@
 package model;
 
+import android.location.Address;
+
 public class User {
     private String id;
     private String name;

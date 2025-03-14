@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
 
 import org.json.JSONObject;
@@ -37,6 +38,9 @@ import org.json.JSONObject;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import model.JobListener;
+import model.WorkerListener;
 import okhttp3.*;
 
 public class RequestServiceActivity extends AppCompatActivity {
@@ -252,8 +256,11 @@ public class RequestServiceActivity extends AppCompatActivity {
         userRef.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 // Get user details from the Firestore document
-                String User = documentSnapshot.getString("name") != null ? documentSnapshot.getString("name") : "Unknown";
-                String userDistrict = documentSnapshot.getString("district") != null ? documentSnapshot.getString("district") : "Unknown";
+                String User =documentSnapshot.getString("name") != null ? documentSnapshot.getString("name") : "Unknown";
+                GeoPoint geoPoint = documentSnapshot.getGeoPoint("location");
+                assert geoPoint != null;
+                double latitude = geoPoint.getLatitude();
+                double longitude = geoPoint.getLongitude();
                 String address = documentSnapshot.getString("address") != null ? documentSnapshot.getString("address") : "Unknown";
 
         Map<String, Object> request = new HashMap<>();
@@ -262,14 +269,16 @@ public class RequestServiceActivity extends AppCompatActivity {
         request.put("imageUrl", imageUrl);
         request.put("address", address);
         request.put("name", User);  // Add user name
-        request.put("userDistrict", userDistrict);
+        request.put("location",new GeoPoint(latitude,longitude));
         request.put("userId", userId);
         request.put("status","pending");
+        request.put("workerId","");
         request.put("timestamp", FieldValue.serverTimestamp());
 
         db.collection("Service").add(request)
                 .addOnSuccessListener(documentReference -> finish())
                 .addOnFailureListener(e -> Log.e("Firestore", "Error adding document", e));
+                new JobListener();
     }
 });
     }

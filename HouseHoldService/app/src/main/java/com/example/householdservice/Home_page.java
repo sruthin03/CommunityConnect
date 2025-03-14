@@ -13,6 +13,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import model.JobListener;
+import model.JobMatchingService;
+
 public class Home_page extends AppCompatActivity {
 
     private ImageView backArrow;
@@ -29,7 +32,8 @@ public class Home_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
-
+        Intent serviceIntent = new Intent(this, JobMatchingService.class);
+        startService(serviceIntent);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();

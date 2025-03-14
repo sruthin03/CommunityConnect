@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:layout_marginTop="15dp"
+    android:layout_marginTop="25dp"
     android:orientation="vertical"
     android:padding="0dp">
 
@@ -104,7 +104,8 @@
                     android:id="@+id/editTextNumber"
                     android:layout_width="142dp"
                     android:layout_height="60dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="15dp"
+                    android:paddingLeft="15dp"
                     android:autofillHints="Age"
                     android:background="@drawable/rounded_textbox"
                     android:ems="10"
@@ -142,56 +143,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="92dp"
-            android:orientation="horizontal" >
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="204dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="15dp"
-                    android:text="District"
-                    android:textSize="22sp" />
-
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="159dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/rounded_textbox"
-                    android:entries="@array/districts"
-                    android:spinnerMode="dropdown" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="32dp"
+                android:layout_marginLeft="15dp"
+                android:text="@string/profession"
+                android:textSize="22sp" />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="15dp"
-                    android:text="@string/profession"
-                    android:textSize="22sp" />
-
-                <Spinner
-                    android:id="@+id/spinner3"
-                    android:layout_width="147dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/rounded_textbox"
-                    android:entries="@array/profession"
-                    android:paddingLeft="15dp"
-                    android:spinnerMode="dropdown" />
-            </LinearLayout>
-
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="360dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_textbox"
+                android:entries="@array/profession"
+                android:paddingLeft="15dp"
+                android:spinnerMode="dropdown" />
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -215,6 +187,30 @@
                 android:paddingLeft="15dp"
                 android:inputType="phone"
                 android:background="@drawable/rounded_textbox"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="92dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:paddingLeft="15dp"
+                android:text="Location"
+                android:textSize="22dp" />
+
+            <Button
+                android:id="@+id/spinner2"
+                android:layout_width="360dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_textbox"
+                android:paddingLeft="15dp"
+                android:text="Select work location"
+                android:textSize="16dp"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -263,10 +259,7 @@
                 android:background="@drawable/rounded_textbox" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="103dp"
-            android:orientation="vertical"></LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -278,10 +271,10 @@
                 android:layout_width="347dp"
                 android:layout_height="68dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="60dp"
                 android:gravity="center"
-                android:textSize="18dp"
-                android:text="Create account" />
+                android:text="Create account"
+                android:textSize="18dp" />
         </LinearLayout>
     </LinearLayout>
 
