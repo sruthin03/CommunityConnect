@@ -109,6 +109,5 @@
         android:textSize="20dp"
         android:text="continue"
         android:layout_marginTop="20dp" />
-
 </LinearLayout>
 
