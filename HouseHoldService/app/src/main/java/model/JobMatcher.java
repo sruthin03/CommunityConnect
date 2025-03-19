@@ -9,7 +9,7 @@ import java.util.*;
 
 public class JobMatcher {
     private FirebaseFirestore db;
-    private static final double MAX_DISTANCE_KM = 15.0;
+    private static final double MAX_DISTANCE_KM = 10.0;
 
     public JobMatcher() {
         db = FirebaseFirestore.getInstance();
