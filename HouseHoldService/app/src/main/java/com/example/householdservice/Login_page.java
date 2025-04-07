@@ -1,6 +1,7 @@
 package com.example.householdservice;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import model.JobMatcher;
+
 
 public class Login_page extends AppCompatActivity {
 
@@ -44,6 +47,24 @@ public class Login_page extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser != null) {
+            // Optional: check stored user type
+            SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+            String userType = prefs.getString("userType", "");
+
+            if (userType.equals("workerId")) {
+                startActivity(new Intent(Login_page.this, WorkerHome.class));
+            } else {
+                startActivity(new Intent(Login_page.this, Home_page.class));
+            }
+
+            finish(); // prevent user from going back to login
+            return; // skip the rest of onCreate
+        }
+
         setContentView(R.layout.login_page);
 
         requestNotificationPermission();
@@ -141,11 +162,18 @@ public class Login_page extends AppCompatActivity {
                         if (document.exists()) {
                             Toast.makeText(Login_page.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                             if (userType.equals("users")){
+                                SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+                                prefs.edit().putString("userType", "user").apply();
+
                                 Intent intent = new Intent(Login_page.this, Home_page.class);
                                 startActivity(intent);
                             }
                             else {
                                 Intent intent = new Intent(Login_page.this, WorkerHome.class);
+                                SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+                                prefs.edit().putString("userType", "workerId").apply();
+                                String workerId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                new JobMatcher().matchJobsToWorker(workerId);
                                 startActivity(intent);
                             }
                         } else {

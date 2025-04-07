@@ -24,8 +24,6 @@ import com.google.firebase.firestore.GeoPoint;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.WorkerListener;
-
 public class WorkerLoginActivity extends AppCompatActivity {
 
     private EditText nameEditText, ageEditText, mobileEditText, emailEditText, passwordEditText;

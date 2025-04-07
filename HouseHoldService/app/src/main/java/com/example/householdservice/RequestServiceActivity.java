@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -39,8 +38,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.JobListener;
-import model.WorkerListener;
+import model.JobMatcher;
 import okhttp3.*;
 
 public class RequestServiceActivity extends AppCompatActivity {
@@ -276,10 +274,16 @@ public class RequestServiceActivity extends AppCompatActivity {
         request.put("timestamp", FieldValue.serverTimestamp());
 
         db.collection("Service").add(request)
-                .addOnSuccessListener(documentReference -> finish())
+                .addOnSuccessListener(documentReference -> {
+                    String jobId = documentReference.getId();
+                    new JobMatcher().matchSingleJob(jobId);
+                    finish();
+                })
                 .addOnFailureListener(e -> Log.e("Firestore", "Error adding document", e));
-                new JobListener();
-    }
+                // After job is added to Firestore
+
+
+            }
 });
     }
 }
