@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -133,7 +134,9 @@ public class WorkerLoginActivity extends AppCompatActivity {
         workerData.put("mobile", mobile);
         workerData.put("email", email);
         workerData.put("jobId","");
-        workerData.put("declinedJobs","");
+        workerData.put("declinedJobs", new ArrayList<String>());
+        workerData.put("completedJobs", new ArrayList<String>());
+
 
         firestore.collection("workerId").document(workerId)
                 .set(workerData)
