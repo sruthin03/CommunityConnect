@@ -172,8 +172,6 @@ public class Login_page extends AppCompatActivity {
                                 Intent intent = new Intent(Login_page.this, WorkerHome.class);
                                 SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
                                 prefs.edit().putString("userType", "workerId").apply();
-                                String workerId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                new JobMatcher().matchJobsToWorker(workerId);
                                 startActivity(intent);
                             }
                         } else {

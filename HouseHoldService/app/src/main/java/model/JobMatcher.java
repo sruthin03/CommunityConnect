@@ -29,6 +29,12 @@ public class JobMatcher {
                     for (DocumentSnapshot workerDoc : workerSnapshot.getDocuments()) {
                         GeoPoint workerLocation = workerDoc.getGeoPoint("location");
                         String skills = (String) workerDoc.get("profession");
+                        List<String> declinedJobs = (List<String>) workerDoc.get("declinedJobs");
+
+                        // Skip if job was previously declined
+                        if (declinedJobs != null && declinedJobs.contains(jobId)) {
+                            continue;
+                        }
 
                         if (workerLocation != null && skills != null && skills.equals(requiredSkill)) {
                             double distance = GeoUtils.distanceInKm(
@@ -36,7 +42,7 @@ public class JobMatcher {
                                     workerLocation.getLatitude(), workerLocation.getLongitude());
 
                             if (distance <= 10.0) {
-                                saveMatch(jobId, workerDoc.getId());
+                                saveMatch(jobId, workerDoc.getId(), distance);
                             }
                         }
                     }
@@ -51,11 +57,19 @@ public class JobMatcher {
             if (workerDoc.exists()) {
                 GeoPoint workerLocation = workerDoc.getGeoPoint("location");
                 String skills = (String) workerDoc.get("profession");
+                List<String> declinedJobs = (List<String>) workerDoc.get("declinedJobs");
 
-                db.collection("Service").get().addOnSuccessListener(jobSnapshot -> {
+                db.collection("Service").whereEqualTo("status","pending")
+                        .get().addOnSuccessListener(jobSnapshot -> {
                     for (DocumentSnapshot jobDoc : jobSnapshot.getDocuments()) {
                         GeoPoint jobLocation = jobDoc.getGeoPoint("location");
                         String requiredSkill = jobDoc.getString("service");
+                        String jobId = jobDoc.getId();
+
+                        // Skip if job was previously declined
+                        if (declinedJobs != null && declinedJobs.contains(jobId)) {
+                            continue;
+                        }
 
                         if (workerLocation != null && skills != null && skills.equals(requiredSkill)) {
                             double distance = GeoUtils.distanceInKm(
@@ -63,7 +77,7 @@ public class JobMatcher {
                                     workerLocation.getLatitude(), workerLocation.getLongitude());
 
                             if (distance <= 10.0) {
-                                saveMatch(jobDoc.getId(), workerId);
+                                saveMatch(jobId, workerId, distance);
                             }
                         }
                     }
@@ -72,13 +86,13 @@ public class JobMatcher {
         });
     }
 
-    private void saveMatch(String jobId, String workerId) {
+    private void saveMatch(String jobId, String workerId, double distance) {
         Map<String, Object> matchData = new HashMap<>();
         matchData.put("jobId", jobId);
         matchData.put("workerId", workerId);
         matchData.put("matchedAt", FieldValue.serverTimestamp());
-        matchData.put("confirmed", false);
-        matchData.put("expiresAt", new Timestamp(new Date(System.currentTimeMillis() + 12 * 60 * 60 * 1000)));
+        matchData.put("status", "pending");
+        matchData.put("distance", distance);
 
         db.collection("MatchedJobs")
                 .whereEqualTo("jobId", jobId)

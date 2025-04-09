@@ -132,6 +132,8 @@ public class WorkerLoginActivity extends AppCompatActivity {
         workerData.put("profession", profession);
         workerData.put("mobile", mobile);
         workerData.put("email", email);
+        workerData.put("jobId","");
+        workerData.put("declinedJobs","");
 
         firestore.collection("workerId").document(workerId)
                 .set(workerData)

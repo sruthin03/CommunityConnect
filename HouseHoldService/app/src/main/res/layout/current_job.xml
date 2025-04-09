@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="40dp"
+    android:fillViewport="true"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Layout shown when job is assigned -->
+        <LinearLayout
+            android:id="@+id/jobDetailsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/jobTitleDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Job Title"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:paddingBottom="8dp" />
+
+            <ImageView
+                android:id="@+id/jobImageDetail"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:background="@android:color/darker_gray"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/clientNameDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Client"
+                android:paddingBottom="4dp" />
+
+            <TextView
+                android:id="@+id/clientPhoneDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contact"
+                android:paddingBottom="12dp" />
+
+            <TextView
+                android:id="@+id/jobAddressDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:paddingBottom="8dp" />
+
+            <fragment
+                android:id="@+id/jobLocationMap"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/btnCompleteJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Completed Job"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <!-- Layout shown when NO job is assigned -->
+        <LinearLayout
+            android:id="@+id/noJobLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:padding="32dp">
+
+            <TextView
+                android:id="@+id/noJobText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No current job assigned"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/findJobsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Find Jobs"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <!-- Fullscreen Image View -->
+        <FrameLayout
+            android:id="@+id/fullImageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#CC000000"
+            android:visibility="gone"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true">
+
+            <ImageView
+                android:id="@+id/fullImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/closeButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="top|end"
+                android:padding="12dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                app:tint="@android:color/white" />
+        </FrameLayout>
+    </RelativeLayout>
+</ScrollView>

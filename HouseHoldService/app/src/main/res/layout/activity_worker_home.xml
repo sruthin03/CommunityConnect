@@ -85,7 +85,7 @@
             android:layout_height="90dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="Job Requests"
+            android:text="Available jobs"
             android:textSize="20sp" />
 
         <Button
@@ -94,7 +94,16 @@
             android:layout_height="90dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:text="Job Details"
+            android:text="Current job"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/completed"
+            android:layout_width="360dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:text="Jobs history"
             android:textSize="20sp" />
 
         <Button
